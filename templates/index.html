@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:wght@700&display=swap');
+    </style>
+    <title>Pitchfork-ify</title>
+</head>
+
+<body class="body">
+
+    <h1>What does Pitchfork think of your music taste?</h1>
+
+    <h2>Here are your most recently saved albums:</h4>
+
+        <ul>
+            {% for row in content["results"] %}
+            <li class="{{ loop.cycle('odd', 'even') }}">{{ row }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Now some more statistics... </h2>
+
+        <div class=chunk>
+            <p class="header" id="callout"> The average Pitchfork score for your saved albums is: </p>
+            <p id="bignumber"> {{ content["averagescore"] }}</p>
+            <p id="callout">You are <u>{{ content["averageword"] }}</u> average by {{ content["averagepts"] }} points!
+                <br> {{ content["averagequip"] }}</p>
+        </div>
+
+        <div class=chunk>
+            <p class="header" id="callout">The highest rated album you have saved is: </p>
+            <p id="stat"> {{ content["max_album"] }} by {{ content["max_artist"] }} </p>
+            <p id="callout"> It received a <u>{{ content["max_score"] }} out of 10!</u><br> Not too shabby!</p>
+            <br><br>
+            <p id="callout"> Here's what the critics had to say about it...</p>
+            <p id="review"> {{ content["max_quote"] }}</p>
+        </div>
+
+        <div class=chunk>
+            <p class="header" id="callout">On the contrary, here's the lowest rated album you have saved...</p>
+            <p id="stat"> {{ content["min_album"] }} by {{ content["min_artist"] }} </p>
+            <p id="callout"> Pitchfork gave {{ content["min_artist"] }} a {{content["min_score"]}} out of 10. <br>You
+                can't have good taste in everything....</p>
+            <br><br>
+
+            <p id="callout"> Here's the scathing review:</p>
+            <p id="review"> {{ content["min_quote"] }}</p>
+        </div>
+</body>
+
+</html>
